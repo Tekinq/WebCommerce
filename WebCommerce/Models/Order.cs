@@ -6,12 +6,14 @@ namespace WebCommerce.Models
     public class Order
     {
         [Key]
-        public int orderId { get; set; }
-        public int customerId { get; set; }
-        [ForeignKey("customerId")]
-        public int adressId { get; set; }
-        [ForeignKey("adressId")]
-        public string orderDetail { get; set; }
+        public int OrderId { get; set; }
 
+        public int CustomerId { get; set; }
+
+        [ForeignKey("CustomerId")]
+        public Customer Customer { get; set; } // Customer sınıfına olan ilişkiyi temsil eder
+
+        public string OrderDetail { get; set; }
     }
+
 }

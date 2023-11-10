@@ -6,11 +6,14 @@ namespace WebCommerce.Models
     public class Subcategory
     {
         [Key]
-        public int subcategoryId { get; set; }
-        public int categoryId { get; set; }
-        [ForeignKey("categoryId")]
-        public string subcategoryName { get; set; }
+        public int SubcategoryId { get; set; }
+
+        public int BrandId { get; set; }
+
+        [ForeignKey("BrandId")]
+        public Brand Brand { get; set; } // Category sınıfına olan ilişkiyi temsil eder
+
+        public string SubcategoryName { get; set; }
 
     }
 }
-

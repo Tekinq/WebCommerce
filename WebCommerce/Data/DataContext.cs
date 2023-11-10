@@ -10,15 +10,13 @@ namespace WebCommerce.Data
         {
         }
 
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<Brand> Brands { get; set; }
         public DbSet<Subcategory> Subcategories { get; set; }
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<CustomerAdress> CustomerAdresses { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<Product> Porducts { get; set; }
+        public DbSet<Product> Products { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Stock> Stocks { get; set; }
-
 
     }
 }

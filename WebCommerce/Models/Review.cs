@@ -6,12 +6,18 @@ namespace WebCommerce.Models
     public class Review
     {
         [Key]
-        public int reviewId { get; set; }
-        public int productId { get; set; }
-        [ForeignKey("productId")]
-        public int customertId { get; set; }
-        [ForeignKey("customertId")]
-        public string reviewText { get; set; }
+        public int ReviewId { get; set; }
 
+        public int ProductId { get; set; }
+
+        [ForeignKey("ProductId")]
+        public Product Product { get; set; } // Product sınıfına olan ilişkiyi temsil eder
+
+        public int CustomerId { get; set; }
+
+        [ForeignKey("CustomerId")]
+        public Customer Customer { get; set; } // Customer sınıfına olan ilişkiyi temsil eder
+
+        public string ReviewText { get; set; }
     }
 }

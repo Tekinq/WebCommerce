@@ -6,10 +6,14 @@ namespace WebCommerce.Models
     public class Stock
     {
         [Key]
-        public int stockId { get; set; }
-        public int productId { get; set; }
-        [ForeignKey("productId")]
-        public int productStock { get; set; }
-        
+        public int StockId { get; set; }
+
+        public int ProductId { get; set; }
+
+        [ForeignKey("ProductId")]
+        public Product Product { get; set; } // Product sınıfına olan ilişkiyi temsil eder
+
+        public int Quantity { get; set; }
     }
+
 }
