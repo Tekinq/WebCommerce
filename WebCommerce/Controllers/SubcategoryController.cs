@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebCommerce.Data;
 using WebCommerce.Models;
 
@@ -14,6 +15,20 @@ namespace WebCommerce.Controllers
         public SubcategoryController(DataContext dbContext)
         {
             _contextDb = dbContext;
+        }
+
+        // HTTP GET ile bütün ketegorileri getir
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Subcategory>>> GetAllSubcategory()
+        {
+            var subcategories = await _contextDb.Subcategories.ToListAsync();
+
+            if (subcategories == null || subcategories.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(subcategories);
         }
 
         [HttpGet("{id}")]

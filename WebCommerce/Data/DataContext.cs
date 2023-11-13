@@ -17,6 +17,7 @@ namespace WebCommerce.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Stock> Stocks { get; set; }
+        public DbSet<WebCommerce.Models.CustomerAddress>? CustomerAddress { get; set; }
 
     }
 }

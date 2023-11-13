@@ -18,51 +18,65 @@ namespace WebCommerce.Controllers
         }
 
 
-        // HTTP GET ile belirli bir kategori getir
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Brand>> GetCategory(int id)
+        // HTTP GET ile bütün markaları getir
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Brand>>> GetAllBrands()
         {
-            var category = await _contextDb.Brands.FindAsync(id);
-            if (category == null)
+            var brands = await _contextDb.Brands.ToListAsync();
+
+            if (brands == null || brands.Count == 0)
             {
                 return NotFound();
             }
-            return Ok(category);
+
+            return Ok(brands);
         }
 
-        // HTTP POST ile yeni kategori eklemek için
-        [HttpPost]
-        public async Task<IActionResult> CreateCategory(Brand category)
+        // HTTP GET ile belirli bir marka getir
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Brand>> GetBrand(int id)
         {
-            if (category == null)
+            var brand = await _contextDb.Brands.FindAsync(id);
+            if (brand == null)
+            {
+                return NotFound();
+            }
+            return Ok(brand);
+        }
+
+        // HTTP POST ile yeni marka eklemek için
+        [HttpPost]
+        public async Task<IActionResult> CreateBrand(Brand brand)
+        {
+            if (brand == null)
             {
                 return BadRequest("Geçersiz veri.");
             }
 
-            // Kategori eklemesi
-            _contextDb.Brands.Add(category);
+            // Marka eklemesi
+            _contextDb.Brands.Add(brand);
             await _contextDb.SaveChangesAsync();
 
-            return CreatedAtAction("GetCategory", new { id = category.BrandId }, category);
+            return CreatedAtAction("GetBrand", new { id = brand.BrandId }, brand);
         }
 
         // HTTP PUT ile mevcut bir kategoriyi güncelle
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCategory(int id, Brand updatedCategory)
+        public async Task<IActionResult> UpdateBrand(int id, Brand updatedBrand)
         {
-            if (id != updatedCategory.BrandId)
+            if (id != updatedBrand.BrandId)
             {
                 return BadRequest();
             }
 
-            var existingCategory = await _contextDb.Brands.FindAsync(id);
-            if (existingCategory == null)
+            var existingBrand = await _contextDb.Brands.FindAsync(id);
+            if (existingBrand == null)
             {
                 return NotFound();
             }
 
-            // Kategori bilgilerini güncelle
-            existingCategory.BrandName = updatedCategory.BrandName;
+            // Marka bilgilerini güncelle
+            existingBrand.BrandName = updatedBrand.BrandName;
 
             try
             {
@@ -71,7 +85,7 @@ namespace WebCommerce.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CategoryExists(id))
+                if (!BrandExists(id))
                 {
                     return NotFound();
                 }
@@ -105,7 +119,7 @@ namespace WebCommerce.Controllers
             return NoContent();
         }
 
-        private bool CategoryExists(int id)
+        private bool BrandExists(int id)
         {
             return _contextDb.Brands.Any(c => c.BrandId == id);
         }

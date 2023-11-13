@@ -11,7 +11,7 @@ using WebCommerce.Data;
 namespace WebCommerce.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231110132042_InitialCreate")]
+    [Migration("20231113134243_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -49,10 +49,6 @@ namespace WebCommerce.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"));
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("CustomerEmail")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -78,6 +74,23 @@ namespace WebCommerce.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("WebCommerce.Models.CustomerAddress", b =>
+                {
+                    b.Property<int>("AdressId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdressId"));
+
+                    b.Property<string>("AdressText")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AdressId");
+
+                    b.ToTable("CustomerAddress");
+                });
+
             modelBuilder.Entity("WebCommerce.Models.Order", b =>
                 {
                     b.Property<int>("OrderId")
@@ -93,9 +106,10 @@ namespace WebCommerce.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("OrderId");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("CustomerId");
+                    b.HasKey("OrderId");
 
                     b.ToTable("Orders");
                 });
@@ -123,6 +137,9 @@ namespace WebCommerce.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProductPrice")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StockId")
                         .HasColumnType("int");
 
                     b.Property<int>("SubcategoryId")
@@ -157,8 +174,6 @@ namespace WebCommerce.Migrations
 
                     b.HasKey("ReviewId");
 
-                    b.HasIndex("CustomerId");
-
                     b.HasIndex("ProductId");
 
                     b.ToTable("Reviews");
@@ -172,15 +187,10 @@ namespace WebCommerce.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StockId"));
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("StockId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Stocks");
                 });
@@ -207,80 +217,54 @@ namespace WebCommerce.Migrations
                     b.ToTable("Subcategories");
                 });
 
-            modelBuilder.Entity("WebCommerce.Models.Order", b =>
-                {
-                    b.HasOne("WebCommerce.Models.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
-                });
-
             modelBuilder.Entity("WebCommerce.Models.Product", b =>
                 {
-                    b.HasOne("WebCommerce.Models.Brand", "Brand")
-                        .WithMany()
+                    b.HasOne("WebCommerce.Models.Brand", null)
+                        .WithMany("Products")
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebCommerce.Models.Subcategory", "Subcategory")
-                        .WithMany()
+                    b.HasOne("WebCommerce.Models.Subcategory", null)
+                        .WithMany("Products")
                         .HasForeignKey("SubcategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Brand");
-
-                    b.Navigation("Subcategory");
                 });
 
             modelBuilder.Entity("WebCommerce.Models.Review", b =>
                 {
-                    b.HasOne("WebCommerce.Models.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebCommerce.Models.Product", "Product")
-                        .WithMany()
+                    b.HasOne("WebCommerce.Models.Product", null)
+                        .WithMany("Reviews")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("WebCommerce.Models.Stock", b =>
-                {
-                    b.HasOne("WebCommerce.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("WebCommerce.Models.Subcategory", b =>
                 {
-                    b.HasOne("WebCommerce.Models.Brand", "Brand")
+                    b.HasOne("WebCommerce.Models.Brand", null)
                         .WithMany("Subcategories")
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Brand");
                 });
 
             modelBuilder.Entity("WebCommerce.Models.Brand", b =>
                 {
+                    b.Navigation("Products");
+
                     b.Navigation("Subcategories");
+                });
+
+            modelBuilder.Entity("WebCommerce.Models.Product", b =>
+                {
+                    b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("WebCommerce.Models.Subcategory", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

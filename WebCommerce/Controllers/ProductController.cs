@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebCommerce.Data;
 using WebCommerce.Models;
 
@@ -14,6 +15,20 @@ namespace WebCommerce.Controllers
         public ProductController(DataContext dbContext)
         {
             _contextDb = dbContext;
+        }
+
+        // HTTP GET ile bütün ürünleri getir
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Product>>> GetAllProduct()
+        {
+            var products = await _contextDb.Products.ToListAsync();
+
+            if (products == null || products.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(products);
         }
 
         [HttpGet("{id}")]

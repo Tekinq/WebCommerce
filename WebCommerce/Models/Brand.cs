@@ -8,7 +8,7 @@ namespace WebCommerce.Models
         public int BrandId { get; set; }
         public string BrandName { get; set; }
 
-        public List<Subcategory> Subcategories { get; set; } // Brand sınıfının Subcategory koleksiyonu
-
+        public ICollection<Subcategory> Subcategories { get; set; }
+        public ICollection<Product> Products { get; set; }
     }
 }

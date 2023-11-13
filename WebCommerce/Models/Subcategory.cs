@@ -8,12 +8,11 @@ namespace WebCommerce.Models
         [Key]
         public int SubcategoryId { get; set; }
 
+        [ForeignKey(nameof(Brand))]
         public int BrandId { get; set; }
-
-        [ForeignKey("BrandId")]
-        public Brand Brand { get; set; } // Category sınıfına olan ilişkiyi temsil eder
-
         public string SubcategoryName { get; set; }
 
+        //public Brand Brand { get; set; }
+        public ICollection<Product> Products { get; set; }
     }
 }

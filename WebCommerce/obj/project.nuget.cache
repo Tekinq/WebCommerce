@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "CssRjjxxwE00YQIOFYvUA2I+YJGYprkXUup8w8XPDGXlfGt8WCWNblUbAt+EL5HxoYPg3pFaH4rbIOuB9prJpg==",
+  "dgSpecHash": "1qtpDNrtJ91zIMXGnUKQQHELOGttIk9rmEIIGuJ/K1dkAqLOac1BTR+J0VUnOSlYWqxyX2JUDOBr/sLUKj+uUg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Stajyer\\Documents\\GitHub\\WebCommerce\\WebCommerce\\WebCommerce.csproj",
   "expectedPackageFiles": [
@@ -121,7 +121,7 @@
     "C:\\Users\\Stajyer\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\Stajyer\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
     "C:\\Users\\Stajyer\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
-    "C:\\Users\\Stajyer\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\Stajyer\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\Stajyer\\.nuget\\packages\\nuget.common\\6.6.1\\nuget.common.6.6.1.nupkg.sha512",
     "C:\\Users\\Stajyer\\.nuget\\packages\\nuget.configuration\\6.6.1\\nuget.configuration.6.6.1.nupkg.sha512",
     "C:\\Users\\Stajyer\\.nuget\\packages\\nuget.dependencyresolver.core\\6.6.1\\nuget.dependencyresolver.core.6.6.1.nupkg.sha512",
